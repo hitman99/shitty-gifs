@@ -1,0 +1,16 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/shitty-gifs:$TAG_NAME', '.']
+  timeout: 600s
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'eu.gcr.io/$PROJECT_ID/shitty-gifs:$TAG_NAME']
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - shitty-gifs
+  - node=eu.gcr.io/$PROJECT_ID/shitty-gifs:$TAG_NAME
+  #env:
+  #- 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+  #- 'CLOUDSDK_CONTAINER_CLUSTER=cloud-build-example'
