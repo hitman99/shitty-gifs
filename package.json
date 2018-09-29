@@ -1,0 +1,27 @@
+{
+  "name": "shitty-gifs",
+  "version": "1.0.0",
+  "description": "My shitty image collection",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hitman99/shitty-gifs.git"
+  },
+  "keywords": [
+    "gifs"
+  ],
+  "author": "tomas@adomavicius.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hitman99/shitty-gifs/issues"
+  },
+  "homepage": "https://github.com/hitman99/shitty-gifs#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^2.0.3",
+    "express": "^4.16.3"
+  }
+}

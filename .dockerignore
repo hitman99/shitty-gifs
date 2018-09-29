@@ -1,0 +1,5 @@
+.gitignore
+gcp-key.json
+README.md
+node_modules
+Dockerfile
