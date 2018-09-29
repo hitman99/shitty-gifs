@@ -11,7 +11,7 @@ steps:
   - deployment
   - shitty-gifs
   - node=eu.gcr.io/$PROJECT_ID/shitty-gifs:$TAG_NAME
-  - -n gifs
+  - --namespace=gifs
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER}'
