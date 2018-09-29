@@ -12,5 +12,5 @@ steps:
   - shitty-gifs
   - node=eu.gcr.io/$PROJECT_ID/shitty-gifs:$TAG_NAME
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=cloud-cluster'
+  - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER}'
