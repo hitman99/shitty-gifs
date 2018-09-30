@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: eu.gcr.io/api-project-262961039094/shitty-gifs:0.1
+        image: eu.gcr.io/api-project-262961039094/shitty-gifs:0.3.3
         ports:
         - containerPort: 80
         resources:
@@ -25,3 +25,17 @@ spec:
           limits:
             memory: "64Mi"
             cpu: "250m"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 9
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 9
+          timeoutSeconds: 3

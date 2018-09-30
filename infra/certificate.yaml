@@ -1,0 +1,18 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: img-hitman-lt
+  namespace: gifs
+spec:
+  secretName: img-hitman-lt-tls
+  issuerRef:
+    name: letsencrypt
+  commonName: img.hitman.lt
+  dnsNames:
+  - img.hitman.lt
+  acme:
+    config:
+    - dns01:
+        provider: prod-dns
+      domains:
+      - img.hitman.lt

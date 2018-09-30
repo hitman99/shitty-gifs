@@ -28,11 +28,11 @@ const get_files = async () => {
 })();
 
 app.get('/healthz', (req, res) => {
-    res.send('OK')
+    res.send('OK');
 });
 app.get('/', async (req, res) => {
     let gifs = await get_files();
-    res.send(gifs.map(g => g.name))
+    res.send(gifs.map(g => g.name));
 });
 
 app.listen(80, () => console.log(`Example app listening on port 80!`));

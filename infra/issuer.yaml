@@ -1,0 +1,19 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: gifs
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: tomas@adomavicius.com
+    privateKeySecretRef:
+      name: letsencrypt
+    dns01:
+      providers:
+        - name: prod-dns
+          clouddns:
+            serviceAccountSecretRef:
+              name: clouddns-service-account
+              key: clouddns-service-account.json
+            project: api-project-262961039094
