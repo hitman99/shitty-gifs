@@ -27,6 +27,9 @@ const get_files = async () => {
     await get_files();
 })();
 
+app.get('/healthz', (req, res) => {
+    res.send('OK')
+});
 app.get('/', async (req, res) => {
     let gifs = await get_files();
     res.send(gifs.map(g => g.name))
