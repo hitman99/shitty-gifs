@@ -24,8 +24,7 @@
   "homepage": "https://github.com/hitman99/shitty-gifs#readme",
   "dependencies": {
     "@google-cloud/storage": "^2.0.3",
-    "express": "^4.16.3",
-
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "react": "^16.5.2",
