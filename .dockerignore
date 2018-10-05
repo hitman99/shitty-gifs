@@ -4,4 +4,6 @@ README.md
 node_modules
 Dockerfile
 infra
+src/frontend
 webpack.config.dev.js
+webpack.config.prod.js
