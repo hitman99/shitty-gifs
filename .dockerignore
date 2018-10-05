@@ -3,7 +3,5 @@ gcp-key.json
 README.md
 node_modules
 Dockerfile
-src/frontend
 infra
 webpack.config.dev.js
-webpack.config.prod.js
