@@ -1,0 +1,15 @@
+body {
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 1.3vw;
+  color: $dark-blue;
+  background: $dark-blue;
+}
+
+.container {
+  max-width: 85.29vw;
+  margin: 0 auto;
+  position: relative;
+  @media (max-width: 720px) {
+    max-width: 89vw;
+  }
+}
