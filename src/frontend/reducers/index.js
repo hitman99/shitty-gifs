@@ -1,5 +1,10 @@
-import { combineReducers } from 'redux'
-
-export default combineReducers({
-  ui: state => ''
-});
+export default function counter(state = {}, action) {
+    switch (action.type) {
+        case 'FETCH_IMAGES':
+            return { isFetching: true };
+        case 'IMAGES_FETCH_SUCCEEDED':
+            return { data: action.data, isFetching: false };
+        default:
+            return state
+    }
+}
