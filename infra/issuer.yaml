@@ -16,4 +16,4 @@ spec:
             serviceAccountSecretRef:
               name: clouddns-service-account
               key: clouddns-service-account.json
-            project: api-project-262961039094
+            project: kube-229818
