@@ -29,9 +29,7 @@ render(
         <Router>
             <Route
                 path="/"
-                render={props => <App {...props}
-                                      fetchImages={() => action('fetch_images')}
-                />}
+                render={props => <App fetchImages={() => action('fetch_images')}/>}
             />
         </Router>
     </Provider>,

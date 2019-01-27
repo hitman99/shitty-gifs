@@ -31,20 +31,20 @@ class App extends React.Component {
 
     render() {
         let images;
-
+        const data = this.props.state.data;
         if (this.props.state.isFetching) {
             images = <GridLoader
                 css={`margin-left:auto;margin-right:auto;`}
                 sizeUnit={"px"}
-                size={130}
+                size={100}
                 margin={`25px`}
                 color={'#e0e0e0'}
                 loading={true}
             />;
         } else {
-            if (this.props.state.data && this.props.state.data.length > 0) {
+            if (data && data.length > 0) {
                 let res = [];
-                this.props.state.data.forEach((imageSource, index) => {
+                data.forEach((imageSource, index) => {
                     if (imageSource.endsWith(".mp4")) {
                         // buggy css layout with video content
                         /* res.push(
@@ -57,7 +57,7 @@ class App extends React.Component {
                              );*/
                     } else {
                         res.push(<Card image={'https://storage.googleapis.com/shitty-gifs/' + imageSource}
-                                       style={{margin: '25px'}}/>);
+                                       style={{margin: '25px'}} key={index}/>);
                     }
                 });
                 images =
@@ -124,7 +124,7 @@ class App extends React.Component {
 
 const mapStateToProps = function (state) {
     return {
-        state: state
+        state: state.img
     }
 };
 

@@ -13,7 +13,8 @@ export function * getImages() {
         const data = yield call(fetchImages);
         yield put({type: "IMAGES_FETCH_SUCCEEDED",  data: data, isFetching: false})
     } catch (error) {
-        yield put({type: "FETCH_FAILED", error})
+        console.log(error);
+        //yield put({type: "FETCH_FAILED", error})
     }
 }
 

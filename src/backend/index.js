@@ -12,7 +12,7 @@ app.get('/healthz', (req, res) => {
     res.send('OK');
 });
 
-app.get('/api/get-images', async (req, res) => {
+app.get('/images', async (req, res) => {
     let gifs = await gcs.getFiles();
     if (!(gifs instanceof Error)) {
         res.send(gifs.map(g => g.name));
