@@ -9,8 +9,8 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import {Provider} from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import {
-  BrowserRouter as Router,
-  Route
+    BrowserRouter as Router,
+    Route
 } from 'react-router-dom'
 
 import * as sagas from 'sagas'
@@ -20,16 +20,17 @@ import App from 'components/App'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer,/*composeEnhancers()*/applyMiddleware(sagaMiddleware));
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(sagas.rootSaga);
+const action = type => store.dispatch({type});
 
 render(
-  <Provider store={store}>
-    <Router>
-      <Route
-        path="/"
-        render={props => <App {...props}/> }
-      />
-    </Router>
-  </Provider>,
-  document.getElementById('react-root'));
+    <Provider store={store}>
+        <Router>
+            <Route
+                path="/"
+                render={props => <App fetchImages={() => action('fetch_images')}/>}
+            />
+        </Router>
+    </Provider>,
+    document.getElementById('react-root'));
