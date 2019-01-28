@@ -54,4 +54,9 @@ html, body, #react-root {
         column-count: 3;
     }
 }
+
+.masonry-container.hidden {
+    display: none;
+    visibility: hidden;
+}
 /***********************************/

@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
-import imagesFetch from './imagesFetch';
+import images from './images';
 
 export default combineReducers({
-    ui: state => '',
-    img: imagesFetch
+    images
 });

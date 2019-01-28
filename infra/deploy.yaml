@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: eu.gcr.io/api-project-262961039094/shitty-gifs:0.3.3
+        image: eu.gcr.io/kube-229818/shitty-gifs:0.4.1
         ports:
         - containerPort: 80
         resources:

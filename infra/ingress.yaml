@@ -4,8 +4,9 @@ metadata:
   name: shitty-gifs
   namespace: gifs
   annotations:
-    kubernetes.io/ingress.allow-http: "false"
+    #kubernetes.io/ingress.allow-http: "false"
     ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.global-static-ip-name: "img-hitman-lt"
 spec:
   tls:
   - secretName: img-hitman-lt-tls
