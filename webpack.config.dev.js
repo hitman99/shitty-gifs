@@ -74,7 +74,7 @@ const config = {
     devServer: {
         historyApiFallback: true,
         proxy: {
-            '**': 'http://localhost:80'
+            '**': 'http://localhost:3000'
         }
     }
 };
