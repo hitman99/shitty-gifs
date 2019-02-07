@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import {
     Header,
     Card,
+    Button,
+    Icon,
     Responsive,
     Segment,
 } from 'semantic-ui-react';
@@ -14,6 +16,7 @@ export default class App extends Component {
         super(props);
         this.state = {
             ready: false,
+            content: 'img',
             images: [],
             scroll: true
         };
@@ -38,15 +41,21 @@ export default class App extends Component {
         let images = this.props.images;
         if (images && images.length > 0 && this.state.scroll) {
             this.setState({
-                images: this.state.images.concat(images.splice(0, (images.length >= 15) ? 15 : images.length))
+                images: this.state.images.concat(images.splice(0, (images.length >= 30) ? 30 : images.length))
             });
-            if(images.length === 0){
+            if (images.length === 0) {
                 this.setState({
                     scroll: false
                 });
             }
-
         }
+    }
+
+    changeContent() {
+        this.setState({
+            ready: (this.state.content === 'mp4') ? false : true,
+            content: (this.state.content === 'img') ? 'mp4' : 'img'
+        });
     }
 
     render() {
@@ -63,36 +72,53 @@ export default class App extends Component {
                 loading={true}
             />;
         }
-        if(images.length === 0 && this.props.images.length > 0){
+        if (images.length === 0 && this.props.images.length > 0) {
             this.renderImages();
         }
         if (!loading && images && images.length > 0) {
-            // temporary filter for videos
-            imageList =
-                <div className={`masonry-container ${!ready ? 'hidden' : '' }`}>
-                    <Masonry
-                        elementType={'div'}
-                        options={{transitionDuration: 1, isFitWidth: true}} // default {}
-                        onLayoutComplete={() => {
-                            this.setState({ready: true})
-                        }}
-                        updateOnEachImageLoad={false}
-                        style={{
-                            marginLeft: 'auto',
-                            marginRight: 'auto'
-                        }}
-                    >
-                        {
-                            images.filter(img => !img.endsWith(".mp4")).map(
-                                (img, idx) =>
-                                    <Card image={'https://storage.googleapis.com/shitty-gifs/' + img}
-                                          style={{margin: '25px'}}
-                                          key={idx}>
-                                    </Card>
-                            )
-                        }
-                    </Masonry>
-                </div>
+            switch (this.state.content) {
+                case 'mp4':
+                    imageList = images.filter(img => img.endsWith(".mp4")).map(
+                        (img, idx) =>
+                            <div style={{margin: '25px'}}
+                                 key={idx}>
+                                <video controls>
+                                    <source src={'https://storage.googleapis.com/shitty-gifs/' + img} type="video/mp4"/>
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                    );
+                    break;
+                case 'img':
+                    imageList =
+                        <div className={`masonry-container ${!ready ? 'hidden' : '' }`}>
+                            <Masonry
+                                elementType={'div'}
+                                options={{transitionDuration: 1, isFitWidth: true}} // default {}
+                                onLayoutComplete={() => {
+                                    this.setState({ready: true})
+                                }}
+                                updateOnEachImageLoad={false}
+                                style={{
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto'
+                                }}
+                            >
+                                {
+                                    images.filter(img => !img.endsWith(".mp4")).map(
+                                        (img, idx) =>
+                                            <Card image={'https://storage.googleapis.com/shitty-gifs/' + img}
+                                                  style={{margin: '25px'}}
+                                                  key={idx}>
+                                            </Card>
+                                    )
+                                }
+                            </Masonry>
+                        </div>
+                    break;
+                default:
+                    break;
+            }
         } else {
             if (!loading) {
                 imageList = <Header
@@ -122,10 +148,13 @@ export default class App extends Component {
                         style={{
                             fontSize: '4em',
                             fontWeight: 'normal',
-                            marginBottom: 0,
+                            marginBottom: '10px',
                             marginTop: '10px',
                         }}
                     />
+                    <Button icon onClick={this.changeContent.bind(this)}>
+                        <Icon name={(this.state.content === 'mp4') ? 'images' : 'video'}/>
+                    </Button>
                 </Segment>
                 <Segment
                     inverted
