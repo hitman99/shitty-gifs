@@ -40,16 +40,18 @@ export default class App extends Component {
             this.setState({
                 images: this.state.images.concat(images.splice(0, (images.length >= 15) ? 15 : images.length))
             });
-        } else {
-            this.setState({
-                scroll: false
-            });
+            if(images.length === 0){
+                this.setState({
+                    scroll: false
+                });
+            }
+
         }
     }
 
     render() {
         let imageList, loader;
-        const {img, loading, error} = this.props;
+        const {loading, error} = this.props;
         const images = this.state.images;
         const {ready} = this.state;
         if (loading || !ready) {
@@ -60,6 +62,9 @@ export default class App extends Component {
                 color={'#e0e0e0'}
                 loading={true}
             />;
+        }
+        if(images.length === 0 && this.props.images.length > 0){
+            this.renderImages();
         }
         if (!loading && images && images.length > 0) {
             // temporary filter for videos
