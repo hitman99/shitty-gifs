@@ -6,6 +6,9 @@ import {
     Button,
     Icon,
     Responsive,
+    Grid,
+    Row,
+    Container,
     Segment,
 } from 'semantic-ui-react';
 import SyncLoader from 'react-spinners/SyncLoader';
@@ -15,7 +18,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ready: false,
+            ready: true, //what for is this "ready" ?
             content: 'img',
             images: [],
             scroll: true
@@ -31,6 +34,12 @@ export default class App extends Component {
         return state;
     }
 
+    componentDidUpdate(){
+        if (this.state.images.length === 0 && this.props.images.length > 0) {
+            this.renderImages();
+        }
+    }
+
     handleScroll(event) {
         if ((document.body.scrollHeight - 100) < (window.innerHeight + document.documentElement.scrollTop)) {
             this.renderImages();
@@ -41,7 +50,7 @@ export default class App extends Component {
         let images = this.props.images;
         if (images && images.length > 0 && this.state.scroll) {
             this.setState({
-                images: this.state.images.concat(images.splice(0, (images.length >= 30) ? 30 : images.length))
+                images: this.state.images.concat(images.splice(0, (images.length >= 15) ? 15 : images.length))
             });
             if (images.length === 0) {
                 this.setState({
@@ -53,7 +62,7 @@ export default class App extends Component {
 
     changeContent() {
         this.setState({
-            ready: (this.state.content === 'mp4') ? false : true,
+       //     ready: (this.state.content === 'mp4') ? false : true,
             content: (this.state.content === 'img') ? 'mp4' : 'img'
         });
     }
@@ -72,9 +81,7 @@ export default class App extends Component {
                 loading={true}
             />;
         }
-        if (images.length === 0 && this.props.images.length > 0) {
-            this.renderImages();
-        }
+
         if (!loading && images && images.length > 0) {
             switch (this.state.content) {
                 case 'mp4':
@@ -95,9 +102,7 @@ export default class App extends Component {
                             <Masonry
                                 elementType={'div'}
                                 options={{transitionDuration: 1, isFitWidth: true}} // default {}
-                                onLayoutComplete={() => {
-                                    this.setState({ready: true})
-                                }}
+
                                 updateOnEachImageLoad={false}
                                 style={{
                                     marginLeft: 'auto',
@@ -138,24 +143,31 @@ export default class App extends Component {
         }
         return (
             <Responsive style={{height: '100%'}}>
-                <Segment
-                    inverted
-                    textAlign='center'>
-                    <Header
-                        as='h1'
-                        content='Shitty gifs'
-                        inverted
-                        style={{
-                            fontSize: '4em',
-                            fontWeight: 'normal',
-                            marginBottom: '10px',
-                            marginTop: '10px',
-                        }}
-                    />
-                    <Button icon onClick={this.changeContent.bind(this)}>
-                        <Icon name={(this.state.content === 'mp4') ? 'images' : 'video'}/>
-                    </Button>
-                </Segment>
+                <Grid>
+                <Grid.Row>
+                    <Grid.Column width={6}>
+                    </Grid.Column>
+                    <Grid.Column width={9}>
+                        <Header
+                            as='h1'
+                            content='Shitty gifs'
+                            inverted
+                            style={{
+                                fontSize: '4em',
+                                fontWeight: 'normal',
+                                marginBottom: '10px',
+                                marginTop: '10px',
+                            }}
+                        />
+                    </Grid.Column>
+                    <Grid.Column width={1}>
+                        <Button icon onClick={this.changeContent.bind(this)} style={{marginTop: '25px'}}>
+                            <Icon name={(this.state.content === 'mp4') ? 'images' : 'video'}/>
+                        </Button>
+                    </Grid.Column>
+                </Grid.Row>
+                </Grid>
+
                 <Segment
                     inverted
                     textAlign='center'
