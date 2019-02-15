@@ -24,4 +24,5 @@ app.get('/images', async (req, res) => {
 app.get('*', function(req, res) {
     res.sendFile(path.resolve(__dirname, '..', '../dist/index.html'));
 });
+
 app.listen(80, () => console.log(`Server is listening on port 80`));
