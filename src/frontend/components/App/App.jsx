@@ -18,7 +18,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ready: true, //what for is this "ready" ?
+            ready: true,
             content: 'img',
             images: [],
             scroll: true
@@ -47,7 +47,7 @@ export default class App extends Component {
     }
 
     renderImages() {
-        let images = this.props.images;
+        const { images } = this.props;
         if (images && images.length > 0 && this.state.scroll) {
             this.setState({
                 images: this.state.images.concat(images.splice(0, (images.length >= 15) ? 15 : images.length))
@@ -70,8 +70,8 @@ export default class App extends Component {
     render() {
         let imageList, loader;
         const {loading, error} = this.props;
-        const images = this.state.images;
-        const {ready} = this.state;
+        const {images, ready} = this.state;
+
         if (loading || !ready) {
             loader = <SyncLoader
                 sizeUnit={"px"}
@@ -102,7 +102,9 @@ export default class App extends Component {
                             <Masonry
                                 elementType={'div'}
                                 options={{transitionDuration: 1, isFitWidth: true}} // default {}
-
+                                /*onLayoutComplete={
+                                    this.setState({ready: true})
+                                }*/
                                 updateOnEachImageLoad={false}
                                 style={{
                                     marginLeft: 'auto',
@@ -145,9 +147,9 @@ export default class App extends Component {
             <Responsive style={{height: '100%'}}>
                 <Grid>
                 <Grid.Row>
-                    <Grid.Column width={6}>
+                    <Grid.Column width={3}>
                     </Grid.Column>
-                    <Grid.Column width={9}>
+                    <Grid.Column width={10} textAlign='center'>
                         <Header
                             as='h1'
                             content='Shitty gifs'
@@ -160,8 +162,8 @@ export default class App extends Component {
                             }}
                         />
                     </Grid.Column>
-                    <Grid.Column width={1}>
-                        <Button icon onClick={this.changeContent.bind(this)} style={{marginTop: '25px'}}>
+                    <Grid.Column width={3} textAlign='right'>
+                        <Button icon onClick={this.changeContent.bind(this)} style={{margin: '25px'}}>
                             <Icon name={(this.state.content === 'mp4') ? 'images' : 'video'}/>
                         </Button>
                     </Grid.Column>
